@@ -12,7 +12,7 @@ sidebar:
 
 ## インストール
 
-Gin をインストールするには、まず Go のインストールおよび Go のワークスペースを作ることが必要です。
+Gin をインストールするには、まず Go のインストールおよび Go のワークスペースを作ることが必要です。go.modファイルがない場合は、`go mod init gin`で作成してください。
 
 1. ダウンロードしてインストールする
 
@@ -32,19 +32,19 @@ import "github.com/gin-gonic/gin"
 import "net/http"
 ```
 
-1. プロジェクトフォルダを作り、 `cd` で中に入ります。
+4. プロジェクトフォルダを作り、 `cd` で中に入る
 
 ```sh
 $ mkdir -p $GOPATH/src/github.com/myusername/project && cd "$_"
 ```
 
-2. 開始用テンプレートをプロジェクトディレクトリにコピーする
+5. 開始用テンプレートをプロジェクトディレクトリにコピーする
 
 ```sh
 $ curl https://raw.githubusercontent.com/gin-gonic/examples/master/basic/main.go > main.go
 ```
 
-3. プロジェクトを実行する
+6. プロジェクトを実行する
 
 ```sh
 $ go run main.go
@@ -68,13 +68,13 @@ package main
 import "github.com/gin-gonic/gin"
 
 func main() {
-	router := gin.Default()
-	router.GET("/ping", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "pong",
-		})
-	})
-	router.Run() // 0.0.0.0:8080 でサーバーを立てます。
+  router := gin.Default()
+  router.GET("/ping", func(c *gin.Context) {
+    c.JSON(200, gin.H{
+      "message": "pong",
+    })
+  })
+  router.Run() // 0.0.0.0:8080 でサーバーを立てます。
 }
 ```
 
@@ -84,3 +84,28 @@ func main() {
 # example.go を実行し、ブラウザで 0.0.0.0:8080/ping にアクセスする
 $ go run example.go
 ```
+
+`net/http`パッケージを使用したい場合は、下記のコードスニペットを書きます。
+
+```go
+package main
+
+import (
+  "github.com/gin-gonic/gin"
+  "net/http"
+)
+
+func main() {
+  router := gin.Default()
+
+  router.GET("/ping", func(c *gin.Context) {
+    c.JSON(http.StatusOK, gin.H{
+      "message": "pong",
+    })
+  })
+
+  router.Run() // 0.0.0.0:8080 でサーバーを立てます。
+}
+```
+
+追加の情報は [Ginソースコードリポジトリ](https://github.com/gin-gonic/gin/blob/master/docs/doc.md) から入手することができます。
